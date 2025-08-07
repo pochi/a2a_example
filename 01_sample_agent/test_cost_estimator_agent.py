@@ -2,7 +2,21 @@ import asyncio
 import argparse
 from cost_estimator_agent.cost_estimator_agent import AWSCostEstimatorAgent
 
+def test_regular(architecture: str = "One EC2 t3.micro instance running 8 hours per day", verbose: bool=True) -> bool:
+    if verbose:
+        print('📆Testing cost estimation')
+    agent = AWSCostEstimatorAgent()
 
+    try:
+        result = agent.estimate_costs(architecture)
+        if verbose:
+            print(f"📊Regular response length: {len(result)} characters")
+            print(f"Result preview: {result[:150]}...")
+        return len(result) > 0
+    except Exception as e:
+        if verbose:
+            print(f"✖️ Test failed: {e}")
+        return False
 
 def parse_argument():
     parser = argparse.ArgumentParser(description="Sample Agent: Calculate AWS Cost")
@@ -42,6 +56,8 @@ async def main() -> None:
     verbose = args.verbose and not args.quiet
 
     print('🤖 testing aws cost agent')
+
+    results = {}
 
     if verbose:
         print(f"Architecture: {args.architecture}")
