@@ -1,6 +1,7 @@
 import logging
 import traceback
 import boto3
+from pprint import pprint
 from contextlib import contextmanager
 from typing import Generator, AsyncGenerator
 from strands import Agent, tool
@@ -19,7 +20,7 @@ from cost_estimator_agent.config import(
 )
 
 logging.basicConfig(
-    level=logging.ERROR, # level can change ERROR/DEBUG if you want to decrease/increase information
+    level=logging.INFO, # level can change ERROR/DEBUG if you want to decrease/increase information
     format=LOG_FORMAT,
     handlers=[logging.StreamHandler()]
 )
@@ -103,7 +104,7 @@ class AWSCostEstimatorAgent:
         
         try:
             logger.info(f"🌟 Executing calculation: {description}")
-            logger.debug(f"Code to execute: \n{calculation_code}")
+            logger.info(f"Code to execute: \n{calculation_code}")
 
             response = self.code_interpreter.invoke("executeCode", {
                 "language": "python",
@@ -111,13 +112,13 @@ class AWSCostEstimatorAgent:
             })
 
             results = []
-            for event in results.get("stream", []):
+            for event in response.get("stream", []):
                 if "result" in event:
                     result = event["result"]
                     if "content" in result:
                         for content_item in result["content"]:
                             if content_item.get("type") == "text":
-                                results.append(content_type["text"])
+                                results.append(content_item["text"])
 
             result_text = "\n".join(results)
             logger.info(f"✅ Calculation completed successfully: {result_text}")
@@ -138,15 +139,21 @@ class AWSCostEstimatorAgent:
                 pricing_tools = aws_pricing_client.list_tools_sync()
                 logger.info(f"Found {len(pricing_tools)} AWS pricing tools")
                 all_tools = [self.execute_cost_calculation] + pricing_tools
+
+                pprint(f"🔨 All tools: {all_tools}")
+
+                # this bedrock model tried to suit nova model, but it did not work.
                 model = BedrockModel(
                     model_id = DEFAULT_MODEL,
                     region_name = self.region,
                     temprature=0.0, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
-                    streaming=False
+                    streaming=False,
+                    max_tokens=3000, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
+                    top_p=1.0 # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
                 )
 
                 agent = Agent(
-                    model=model,
+                    model=DEFAULT_MODEL,
                     tools=all_tools,
                     system_prompt=SYSTEM_PROMPT
                 )

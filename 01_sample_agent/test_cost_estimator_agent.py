@@ -24,7 +24,7 @@ def parse_argument():
     parser.add_argument(
         '--architecture', 
         type=str, 
-        default="One EC2 t3.micro instance running 24/7",
+        default="One EC2 t3.micro instance running 8 hours per day",
         help='Architecture description to test (default: "One EC2 t3.micro instance running 24/7")'
     )
     

@@ -1,0 +1,374 @@
+(a2a-example) ➜  01_sample_agent git:(main) ✗ uv run python test_cost_estimator_agent.py
+🤖 testing aws cost agent
+Architecture: One EC2 t3.micro instance running 8 hours per day
+Tests to run: regular
+📆Testing cost estimation
+Installed 46 packages in 83ms
+INFO:mcp.server.lowlevel.server:Processing request of type ListToolsRequest
+I'll analyze this architecture and provide an AWS cost estimate for one EC2 t3.micro instance running 8 hours per day.
+
+Let me get the pricing information and calculate the costs for you.
+Tool #1: get_pricing_service_codes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now, let me get the information about EC2 instance pricing attributes:
+Tool #2: get_pricing_service_attributes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now let's get the specific values for the instanceType attribute for EC2:
+Tool #3: get_pricing_attribute_values
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now, let's get the pricing information for a t3.micro instance:
+Tool #4: get_pricing
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now that I have gathered all the necessary pricing information, let's calculate the cost for your architecture.
+Tool #5: execute_cost_calculation
+I apologize for the error. Let's try the calculation again with the correct variable:
+Tool #6: execute_cost_calculation
+# AWS Cost Estimate: t3.micro EC2 Instance (8 hours per day)
+
+## Architecture Description
+- 1x EC2 t3.micro instance running 8 hours per day on Linux OS
+- Region: us-east-1 (N. Virginia)
+- Standard On-Demand pricing model
+- EBS storage only
+
+## Cost Breakdown
+
+| Service | Configuration | Unit Price | Monthly Cost |
+|---------|--------------|------------|--------------|
+| EC2 Instance | t3.micro (2 vCPU, 1 GiB RAM)<br>8 hours/day, 30 days/month | $0.0104 per hour | $2.50 |
+| **Total** | | | **$2.50** |
+
+## Instance Specifications
+- **vCPUs**: 2
+- **Memory**: 1 GiB
+- **Storage**: EBS only (additional EBS volumes would incur separate charges)
+- **Network Performance**: Up to 5 Gigabit
+- **Processor**: Intel Skylake E5 2686 v5 (3.1 GHz)
+
+## Cost Optimization Recommendations
+1. **Consider Savings Plans or Reserved Instances** if this instance will run consistently for 1+ years
+2. **Free Tier Eligibility**: If you're within your first 12 months of AWS, you might qualify for 750 free hours of t3.micro per month
+3. **Auto Shutdown/Startup**: Implement automation to ensure the instance runs only during the required 8 hours daily
+4. **Right-sizing**: Monitor CPU/memory usage to verify t3.micro meets your requirements
+
+## Additional Considerations
+- This estimate doesn't include:
+  - EBS volume storage costs
+  - Data transfer costs
+  - Elastic IP charges (if applicable)
+  - Backup costs
+  - Additional AWS services
+
+Would you like me to provide more detailed cost information about any specific aspect of this setup?📊Regular response length: 1528 characters
+Result preview: # AWS Cost Estimate: t3.micro EC2 Instance (8 hours per day)
+
+## Architecture Description
+- 1x EC2 t3.micro instance running 8 hours per day on Linux ...
+
+📈 Test Results:
+  Regular implementation: ✅ PASS
+(a2a-example) ➜  01_sample_agent git:(main) ✗ uv run python test_cost_estimator_agent.py
+
+🤖 testing aws cost agent
+Architecture: One EC2 t3.micro instance running 8 hours per day
+Tests to run: regular
+📆Testing cost estimation
+2025-08-07 10:18:39,909 | INFO | cost_estimator_agent.cost_estimator_agent | Initializing AWS Cost Estimation Agent in region: us-east-1
+2025-08-07 10:18:39,909 | INFO | cost_estimator_agent.cost_estimator_agent | 💹 Starting cost estimation...
+2025-08-07 10:18:39,909 | INFO | cost_estimator_agent.cost_estimator_agent | Architecture: One EC2 t3.micro instance running 8 hours per day
+2025-08-07 10:18:39,909 | INFO | cost_estimator_agent.cost_estimator_agent | 🚀Initializing AWS Cost Estimation Agent...
+2025-08-07 10:18:39,909 | INFO | cost_estimator_agent.cost_estimator_agent | Setting up AgentCore code interpreter
+2025-08-07 10:18:39,918 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+
+
+2025-08-07 10:18:42,605 | INFO | cost_estimator_agent.cost_estimator_agent | 👍 AgentCore Codeintepreter session started
+2025-08-07 10:18:42,605 | INFO | cost_estimator_agent.cost_estimator_agent | 🤖 Setting up AWS Pricing MCP Client...
+2025-08-07 10:18:42,605 | INFO | cost_estimator_agent.cost_estimator_agent | 💪 Getting current AWS credentials
+2025-08-07 10:18:42,618 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+2025-08-07 10:18:43,501 | INFO | cost_estimator_agent.cost_estimator_agent | 💁‍♂️ Using AWS identity: arn:aws:iam::393434511143:user/pochi
+2025-08-07 10:18:43,503 | INFO | cost_estimator_agent.cost_estimator_agent | 💁‍♂️ AWS Pricing MCP Client setup successfully
+Installed 46 packages in 85ms
+INFO:mcp.server.lowlevel.server:Processing request of type ListToolsRequest
+2025-08-07 10:18:45,041 | INFO | cost_estimator_agent.cost_estimator_agent | Found 9 AWS pricing tools
+2025-08-07 10:18:45,044 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+2025-08-07 10:18:45,093 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+I'll analyze the architecture and provide an AWS cost estimate for your EC2 t3.micro instance that runs 8 hours per day.
+
+First, let's get the pricing information for an EC2 t3.micro instance and calculate the costs.
+Tool #1: get_pricing_service_codes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now, let's get the pricing information for EC2 service:
+Tool #2: get_pricing_service_attributes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Let's get some specific attributes for our EC2 t3.micro instance:
+Tool #3: get_pricing_attribute_values
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+2025-08-07 10:19:01.724 | ERROR    | awslabs.aws_pricing_mcp_server.server:create_error_response:64 - Failed to retrieve values for attribute "region": No values found for attribute "region" of service "AmazonEC2". This could be due to an invalid service code or an invalid attribute name for this service.
+Let me try with the correct attribute for region, which is "location":
+Tool #4: get_pricing_attribute_values
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now, let's get the pricing information for a t3.micro instance in US East (N. Virginia) using shared tenancy and Linux operating system:
+Tool #5: get_pricing
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now, let's calculate the cost for running a t3.micro instance for 8 hours per day:
+Tool #6: execute_cost_calculation
+2025-08-07 10:19:26,581 | INFO | cost_estimator_agent.cost_estimator_agent | 🌟 Executing calculation: Calculate the cost of running a t3.micro EC2 instance for 8 hours per day
+2025-08-07 10:19:26,969 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Calculation completed successfully: EC2 t3.micro (Linux) Hourly Price: $0.0104
+Daily Cost (8 hours): $0.08
+Monthly Cost (30 days): $2.50
+Annual Cost (365 days): $30.37
+Let's also consider storage cost for the EBS volume that typically comes with an EC2 instance:
+Tool #7: get_pricing_service_attributes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+2025-08-07 10:19:39.557 | ERROR    | awslabs.aws_pricing_mcp_server.server:create_error_response:64 - Service "AmazonEBS" was not found. Please verify the service code is correct.
+Let's check if EBS is part of EC2 service or has another code:
+Tool #8: get_pricing
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now let's calculate the total cost including a typical 8 GB EBS gp3 volume for the EC2 instance:
+Tool #9: execute_cost_calculation
+2025-08-07 10:20:17,838 | INFO | cost_estimator_agent.cost_estimator_agent | 🌟 Executing calculation: Calculate the total cost of running a t3.micro EC2 instance for 8 hours per day with an 8 GB EBS gp3 volume
+2025-08-07 10:20:18,214 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Calculation completed successfully: EC2 t3.micro (Linux) Hourly Price: $0.0104
+EC2 Daily Cost (8 hours): $0.08
+EC2 Monthly Cost (30 days): $2.50
+EBS gp3 (8 GB) Monthly Cost: $0.64
+Total Monthly Cost: $3.14
+Total Annual Cost: $38.05
+## AWS Cost Estimate: EC2 t3.micro Instance Running 8 Hours Daily
+
+### Architecture Description
+- 1x EC2 t3.micro instance (2 vCPUs, 1 GiB memory)
+- Running 8 hours per day
+- Linux operating system
+- Shared tenancy
+- 8 GB EBS gp3 volume for storage
+- Region: US East (N. Virginia)
+
+### Cost Breakdown
+
+| Service | Configuration | Unit Price | Monthly Cost |
+|---------|---------------|------------|-------------|
+| EC2 | t3.micro Linux (8 hrs/day) | $0.0104 per hour | $2.50 |
+| EBS | 8 GB gp3 volume | $0.08 per GB-month | $0.64 |
+| **Total** | | | **$3.14** |
+
+### Annual Cost: $38.05
+
+### Discussion Points
+1. **Cost Optimization**:
+   - Consider using EC2 Savings Plans if you plan to run this instance consistently, which could provide up to 72% savings compared to on-demand pricing.
+   - If your workload is flexible, you could use Spot Instances for even greater savings (up to 90% off on-demand prices).
+
+2. **Operational Considerations**:
+   - The EBS volume is charged for the full month regardless of whether the EC2 instance is running or stopped.
+   - EC2 costs are only incurred while the instance is in the "running" state. You're only billed for the 8 hours per day when the instance is running.
+   - Consider setting up an automated schedule using AWS Lambda and CloudWatch Events to automatically start and stop your instance at specified times.
+
+3. **Free Tier Eligibility**:
+   - AWS Free Tier includes 750 hours of t3.micro instances per month for the first 12 months.
+   - If you're within the Free Tier period, your actual EC2 cost could be $0 (although you might still pay for EBS if you exceed the Free Tier storage limit of 30 GB).
+
+4. **Performance Considerations**:
+   - t3.micro instances use CPU credits for bursting. If your workload requires sustained CPU performance, you might consider a different instance type or monitor your CPU credit balance.
+
+Woul2025-08-07 10:20:32,408 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Cost estimation completed
+2025-08-07 10:20:32,500 | INFO | cost_estimator_agent.cost_estimator_agent | 🧹Cleaning up resources..
+2025-08-07 10:20:32,907 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Code interpreter session stopped
+d you like more information about any specific aspect of this cost estimate?📊Regular response length: 1964 characters
+Result preview: ## AWS Cost Estimate: EC2 t3.micro Instance Running 8 Hours Daily
+
+### Architecture Description
+- 1x EC2 t3.micro instance (2 vCPUs, 1 GiB memory)
+- R...
+
+📈 Test Results:
+  Regular implementation: ✅ PASS
+
+### log(code付き)
+
+✗ uv run python test_cost_estimator_agent.py
+🤖 testing aws cost agent
+Architecture: One EC2 t3.micro instance running 8 hours per day
+Tests to run: regular
+📆Testing cost estimation
+2025-08-07 12:29:26,782 | INFO | cost_estimator_agent.cost_estimator_agent | Initializing AWS Cost Estimation Agent in region: us-east-1
+2025-08-07 12:29:26,782 | INFO | cost_estimator_agent.cost_estimator_agent | 💹 Starting cost estimation...
+2025-08-07 12:29:26,782 | INFO | cost_estimator_agent.cost_estimator_agent | Architecture: One EC2 t3.micro instance running 8 hours per day
+2025-08-07 12:29:26,782 | INFO | cost_estimator_agent.cost_estimator_agent | 🚀Initializing AWS Cost Estimation Agent...
+2025-08-07 12:29:26,782 | INFO | cost_estimator_agent.cost_estimator_agent | Setting up AgentCore code interpreter
+2025-08-07 12:29:26,790 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+2025-08-07 12:29:29,400 | INFO | cost_estimator_agent.cost_estimator_agent | 👍 AgentCore Codeintepreter session started
+2025-08-07 12:29:29,400 | INFO | cost_estimator_agent.cost_estimator_agent | 🤖 Setting up AWS Pricing MCP Client...
+2025-08-07 12:29:29,400 | INFO | cost_estimator_agent.cost_estimator_agent | 💪 Getting current AWS credentials
+2025-08-07 12:29:29,412 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+2025-08-07 12:29:30,364 | INFO | cost_estimator_agent.cost_estimator_agent | 💁‍♂️ Using AWS identity: arn:aws:iam::393434511143:user/pochi
+2025-08-07 12:29:30,367 | INFO | cost_estimator_agent.cost_estimator_agent | 💁‍♂️ AWS Pricing MCP Client setup successfully
+Installed 46 packages in 86ms
+INFO:mcp.server.lowlevel.server:Processing request of type ListToolsRequest
+2025-08-07 12:29:32,034 | INFO | cost_estimator_agent.cost_estimator_agent | Found 9 AWS pricing tools
+('🔨 All tools: [<strands.tools.decorator.DecoratedFunctionTool object at '
+ '0x1045aee10>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x103d65850>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x10454d210>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x104596890>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045cbb90>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045cbe10>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045cbdd0>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045af390>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045aed50>, <strands.tools.mcp.mcp_agent_tool.MCPAgentTool object at '
+ '0x1045aef50>]')
+2025-08-07 12:29:32,037 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+2025-08-07 12:29:32,086 | INFO | botocore.credentials | Found credentials in shared credentials file: ~/.aws/credentials
+I'll analyze this architecture and provide an AWS cost estimate for a t3.micro EC2 instance running 8 hours per day.
+
+First, I need to get pricing information for the EC2 service.
+Tool #1: get_pricing_service_codes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now I'll get the service attributes for EC2 to understand what filters I can apply:
+Tool #2: get_pricing_service_attributes
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now let's get the possible values for instanceType attribute, which is what we need for a t3.micro:
+Tool #3: get_pricing_attribute_values
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now I'll get the pricing information for a t3.micro instance with Linux operating system in a common region (US East N. Virginia):
+Tool #4: get_pricing
+INFO:mcp.server.lowlevel.server:Processing request of type CallToolRequest
+INFO:botocore.credentials:Found credentials in environment variables.
+Now I'll use the execute_cost_calculation function to calculate the monthly cost based on the provided pricing data:
+Tool #5: execute_cost_calculation
+2025-08-07 12:30:11,021 | INFO | cost_estimator_agent.cost_estimator_agent | 🌟 Executing calculation: Calculate the cost of a t3.micro EC2 instance running 8 hours per day for a month
+2025-08-07 12:30:11,021 | INFO | cost_estimator_agent.cost_estimator_agent | Code to execute:
+# Get the on-demand price for t3.micro Linux instance
+for item in pricing_data["data"]:
+    product = item["product"]
+    if (product["attributes"]["instanceType"] == "t3.micro" and
+        product["attributes"]["operatingSystem"] == "Linux" and
+        product["attributes"]["tenancy"] == "Shared" and
+        product["attributes"]["preInstalledSw"] == "NA" and
+        "capacitystatus" in product["attributes"] and
+        product["attributes"]["capacitystatus"] == "Used"):
+
+        # Get the OnDemand pricing
+        terms = item["terms"]["OnDemand"]
+        for term_key in terms:
+            term = terms[term_key]
+            for dimension_key in term["priceDimensions"]:
+                dimension = term["priceDimensions"][dimension_key]
+                if "On Demand Linux t3.micro" in dimension["description"]:
+                    hourly_rate = float(dimension["pricePerUnit"]["USD"])
+
+                    # Calculate daily and monthly costs
+                    hours_per_day = 8
+                    days_per_month = 30
+
+                    daily_cost = hourly_rate * hours_per_day
+                    monthly_cost = daily_cost * days_per_month
+
+                    print(f"EC2 t3.micro instance (Linux, Shared tenancy):")
+                    print(f"Hourly rate: ${hourly_rate:.4f}")
+                    print(f"Daily cost (8 hours/day): ${daily_cost:.4f}")
+                    print(f"Monthly cost (30 days): ${monthly_cost:.2f}")
+                    break
+2025-08-07 12:30:14,427 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Calculation completed successfully: ---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+Cell In[2], line 2
+      1 # Get the on-demand price for t3.micro Linux instance
+----> 2 for item in pricing_data["data"]:
+      3     product = item["product"]
+      4     if (product["attributes"]["instanceType"] == "t3.micro" and
+      5         product["attributes"]["operatingSystem"] == "Linux" and
+      6         product["attributes"]["tenancy"] == "Shared" and
+   (...)
+     10
+     11         # Get the OnDemand pricing
+
+NameError: name 'pricing_data' is not defined
+I need to correct the code to properly process the pricing data:
+Tool #6: execute_cost_calculation
+2025-08-07 12:30:23,620 | INFO | cost_estimator_agent.cost_estimator_agent | 🌟 Executing calculation: Calculate the cost of a t3.micro EC2 instance running 8 hours per day for a month
+2025-08-07 12:30:23,620 | INFO | cost_estimator_agent.cost_estimator_agent | Code to execute:
+# Define the hourly rate for a t3.micro instance in us-east-1 (from the pricing data)
+hourly_rate = 0.0104  # This is the on-demand price for a t3.micro Linux instance in us-east-1
+
+# Calculate daily and monthly costs
+hours_per_day = 8
+days_per_month = 30
+
+daily_cost = hourly_rate * hours_per_day
+monthly_cost = daily_cost * days_per_month
+
+print(f"EC2 t3.micro instance (Linux, Shared tenancy):")
+print(f"Hourly rate: ${hourly_rate:.4f}")
+print(f"Daily cost (8 hours/day): ${daily_cost:.4f}")
+print(f"Monthly cost (30 days): ${monthly_cost:.2f}")
+2025-08-07 12:30:27,091 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Calculation completed successfully: EC2 t3.micro instance (Linux, Shared tenancy):
+Hourly rate: $0.0104
+Daily cost (8 hours/day): $0.0832
+Monthly cost (30 days): $2.50
+# AWS Cost Estimate: EC2 t3.micro Instance
+
+## Architecture Description
+The architecture consists of:
+- One EC2 t3.micro instance
+- Running for 8 hours per day
+- Linux operating system
+- Default VPC with shared tenancy
+- Region: US East (N. Virginia)
+
+## Cost Breakdown
+
+| Service | Configuration | Unit Price | Monthly Cost |
+|---------|---------------|------------|--------------|
+| EC2 t3.micro | Linux, 2 vCPU, 1 GiB RAM | $0.0104 per hour | $2.50 |
+| **Total** | | | **$2.50** |
+
+## Calculation Details
+- Hourly rate: $0.0104
+- Daily usage: 8 hours × $0.0104 = $0.0832 per day
+- Monthly cost (30 days): $0.0832 × 30 = $2.50
+
+## Discussion Points
+
+1. **EC2 Savings Options:**
+   - Using EC2 Reserved Instances could reduce costs if you plan to run this instance for 1-3 years
+   - Savings Plans could provide discounts with more flexibility than Reserved Instances
+   - Free Tier: If you're eligible for AWS Free Tier, you might get 750 hours of t3.micro usage per month for free for 12 months
+
+2. **Optimization Possibilities:**
+   - Consider implementing automatic start/stop scripts to ensure the instance only runs during the scheduled 8 hours
+   - AWS Instance Scheduler could automate this process for you
+   - Consider t3a.micro (AMD-based) which can be slightly cheaper than t3.micro (Intel-based) in some regions
+
+3. **Other Costs to Consider:**
+   - This estimate only includes the EC2 instance cost
+   - Additional costs may include:
+     - EBS storage (you'll need at least one root volume)
+     - Data transfer costs (if significant outbound traffic is expected)
+     - Elastic IP charges (if using a static public IP)
+
+Would you2025-08-07 12:30:43,691 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Cost estimation completed
+2025-08-07 12:30:43,808 | INFO | cost_estimator_agent.cost_estimator_agent | 🧹Cleaning up resources..
+2025-08-07 12:30:44,295 | INFO | cost_estimator_agent.cost_estimator_agent | ✅ Code interpreter session stopped
+ like more details on any particular aspect of this cost estimate?📊Regular response length: 1712 characters
+Result preview: # AWS Cost Estimate: EC2 t3.micro Instance
+
+## Architecture Description
+The architecture consists of:
+- One EC2 t3.micro instance
+- Running for 8 hour...
+
+📈 Test Results:
+  Regular implementation: ✅ PASS
