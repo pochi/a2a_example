@@ -6,6 +6,8 @@ separated from the main logic to maintain clean code structure
 and pass linting tools.
 """
 
+import os
+
 # System prompt for the AWS Cost Estimation Agent
 SYSTEM_PROMPT = """You are an AWS Cost Estimation Expert Agent.
 
@@ -55,9 +57,12 @@ Please analyze this architecture and provide an AWS cost estimate:
 """
 
 # Model configuration
-DEFAULT_MODEL = "us.anthropic.claude-3-7-sonnet-20250219-v1:0" 
+#DEFAULT_MODEL = "us.anthropic.claude-3-7-sonnet-20250219-v1:0" 
 #DEFAULT_MODEL = "amazon.nova-micro-v1:0"
 #DEFAULT_MODEL = "anthropic.claude-3-5-sonnet-20240620-v1:0"
+DEFAULT_MODEL = "gemini-2.0-flash"
+
+GEMINI_API_KEY = os.environ['GEMINI_API_KEY']
 
 # AWS regions
 DEFAULT_REGION = "us-east-1"

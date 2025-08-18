@@ -29,7 +29,7 @@ class Client(Protocol):
 class GeminiModel(Model):
     client: Client
 
-    class GeminiConfig(TypedDict, toatl=False):
+    class GeminiConfig(TypedDict, total=False):
         model_id: str
         params: Optional[dict[str, Any]]
 
@@ -65,7 +65,7 @@ class GeminiModel(Model):
 
     @classmethod
     def format_request_tool_message(cls, tool_result: ToolResult) -> dict[str, Any]:
-        content = cast(
+        contents = cast(
             list[ContentBlock],
             [
                 {'text': json.dumps(content['json'])} if 'json' in content else content
@@ -85,7 +85,7 @@ class GeminiModel(Model):
         formatted_messages = [{"role": "system", "content": system_prompt}] if system_prompt else []
 
         for message in messages:
-            content = message["content"]
+            contents = message["content"]
             formatted_contents = [
                 cls.format_request_message_content(content)
                 for content in contents
@@ -105,11 +105,11 @@ class GeminiModel(Model):
             formatted_message = {
                 'role': message['role'],
                 'content': formatted_contents,
-                **({'tool_calls': formatted_tool_calls} if formatted_tool_calls or {}),
+                **({'tool_calls': formatted_tool_calls} if formatted_tool_calls else {}),
             }
 
-            formatted_message.append(formatted_message)
-            formatted_message.extend(formatted_tool_messages)
+            formatted_messages.append(formatted_message)
+            formatted_messages.extend(formatted_tool_messages)
 
         return [message for message in formatted_messages if message['content'] or 'tool_calls' in message]
 
@@ -203,10 +203,10 @@ class GeminiModel(Model):
     async def stream(
         self,
         messages: Messages,
-        tool_specs: Optinal[list[ToolSpec]] = None,
+        tool_specs: Optional[list[ToolSpec]] = None,
         system_prompt: Optional[str] = None,
         **kwargs: Any,
-    ) -> AsyncGenerator[SteramEvent, None]:
+    ) -> AsyncGenerator[StreamEvent, None]:
         logger.debug('formatting request')
         request = self.format_request(messages, tool_specs, system_prompt)
         logger.debug("formatted request=<%s>", request)
@@ -214,6 +214,77 @@ class GeminiModel(Model):
         logger.debug('invoke model')
         response = await self.client.models.generate_content('gemini-2.0-flash', **request)
 
+        logger.debug("got response from model")
+        yield self.format_chunk({"chunk_type": 'message_start'})
+        yield self.format_chunk({'chunk_type': 'content_start', 'data_type': 'text'})
+
+        tool_calls: dict[int, list[Any]] = {}
+
+        async for event in response:
+            if not getattr(event, 'choices', None):
+                continue
+
+            choice = event.choices[0]
+
+            if choice.delta.content:
+                yield self.format_chunk(
+                    {'chunk_type': 'content_delta', 'data_type': 'text', 'data': choice.delta.content}
+                )
+
+            if hasattr(choice.delta, 'reasoning_content') and choice.delta.reasoning_content:
+                yield self.format_chunk(
+                    {
+                        'chunk_type': 'content_delta',
+                        'data_type': 'reasoning_content',
+                        'data': choice.delta.reasoning_content
+                    }
+                )
+
+            for tool_call in choice.delta.tool_calls or []:
+                tool_calls.setdefault(tool_call.index, []).append(tool_call)
+
+            if choice.finish_reason:
+                break
+
+        yield self.format_chunk({'chunk_type': 'content_stop', 'data_type': 'text'})
+
+        for tool_deltas in tool_calls.values():
+            yield self.format_chunk({'chunk_type': 'content_start', 'data_type': 'tool', 'data': tool_deltas[0]})
+
+            for tool_delta in tool_deltas:
+                yield self.format_chunk({'chunk_type': 'content_delta', 'data_type': 'tool', 'data': tool_delta})
+
+            yield self.format_chunk({'chunk_type': 'content_stop', 'data_type': 'tool'})
+
+        yield self.format_chunk({'chunk_type': 'message_stop', 'data': choice.finish_reason})
+
+        async for event in response:
+            _ = event
+
+        if event.usage:
+            yield self.format_chunk({'chunk_type': 'metadata', 'data': event.usage})
+
+        logger.debug('finished streaming response from model')
+
+    @override
+    async def structured_output(
+        self, output_model: Type[T], prompt: Messages, system_prompt: Optional[str] = None, **kwargs: Any
+    ) -> AsyncGenerator[dict[str, Union[T, Any]], None]:
+        response = await self.client.models.generate_contents('gemini-2.0-flash')
+
+        parsed: T | None = None
+        if len(response.choices) > 1:
+            raise ValueError('Multiple choices found in the Gemini response')
+        
+        for choice in response.choices:
+            if isinstance(choice.message.parsed, output_model):
+                parsed = choice.message.parsed
+                break
+
+        if parsed:
+            yield {'output': parsed}
+        else:
+            raise ValueError('no valid tool use or tool use input was found in the gemini response.')
         
 
 

@@ -10,13 +10,15 @@ from strands.tools.mcp import MCPClient
 from strands.handlers.callback_handler import null_callback_handler
 from mcp import stdio_client, StdioServerParameters
 from bedrock_agentcore.tools.code_interpreter_client import CodeInterpreter
+from models.gemini import GeminiModel
 
 from cost_estimator_agent.config import(
     SYSTEM_PROMPT,
     COST_ESTIMATION_PROMPT,
     DEFAULT_MODEL,
     DEFAULT_REGION,
-    LOG_FORMAT
+    LOG_FORMAT,
+    GEMINI_API_KEY
 )
 
 logging.basicConfig(
@@ -143,17 +145,26 @@ class AWSCostEstimatorAgent:
                 pprint(f"🔨 All tools: {all_tools}")
 
                 # this bedrock model tried to suit nova model, but it did not work.
-                model = BedrockModel(
-                    model_id = DEFAULT_MODEL,
-                    region_name = self.region,
-                    temprature=0.0, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
-                    streaming=False,
-                    max_tokens=3000, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
-                    top_p=1.0 # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
+                # model = BedrockModel(
+                #     model_id = DEFAULT_MODEL,
+                #     region_name = self.region,
+                #     temprature=0.0, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
+                #     streaming=False,
+                #     max_tokens=3000, # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
+                #     top_p=1.0 # this is recommended by [aws guide](https://docs.aws.amazon.com/nova/latest/userguide/prompting-tool-troubleshooting.html)
+                # )
+                model = GeminiModel(
+                    {
+                        'api_key': GEMINI_API_KEY
+                    },
+                    model_config = {
+                        'model_name': DEFAULT_MODEL,
+                        'model_id': DEFAULT_MODEL
+                    }
                 )
 
                 agent = Agent(
-                    model=DEFAULT_MODEL,
+                    model=model,
                     tools=all_tools,
                     system_prompt=SYSTEM_PROMPT
                 )
